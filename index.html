@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/svg+xml" href="./images/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart Js</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body>
+    <header>
+        <div class="header-section container">
+            <img class="logo" src="./images/logoShop.png" alt="">
+            <div>
+                <img onmouseover="showCart(this)" class="cart" src="./images/cart.png" alt="">
+                <p class="count-product">0</p>
+            </div>
+            <div class="cart-products" id="products-id">
+                <p class="close-btn" onclick="closeBtn()">X</p>
+                <h3>Mi carrito</h3>
+                <div class="card-items">
+                    <!-- <div class="item">
+                       Contenido del carrito
+                    </div> -->
+                </div>
+                <h2>Total:Ars$ <strong class="price-total">0</strong> </h2>
+            </div>
+        </div>
+    </header>
+    <section class="container">
+        <div class="products">
+            <div class="carts">
+                <div>
+                    <img src="./images/products/corsairvengeance(2x8GB)2666MHz.jpg" alt="">
+                    <p>Ars$<span>1000</span></p>
+                </div>
+                <p class="title">Rams ddr 4 de lo mejor</p>
+                <a href="" data-id="1" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/evega600B1.jpg" alt="">
+                    <p>Ars$<span>22500</span></p>
+                </div>
+                <p class="title"> Fuente de poder Evega ideal para tu pc gamer</p>
+                <a href="" class="btn-add-cart" data-id="2">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/corsairvengeance.jpg" alt="">
+                    <p>Ars$<span>11000</span></p>
+                </div>
+                <p class="title">Ram ddr4 de alta velocidad</p>
+                <a href="" data-id="3" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/corsairK70.jpg" alt="">
+                    <p>Ars$<span>15000</span></p>
+                </div>
+                <p class="title"> Teclado mecanico corsairK70 ideal para programadores y gamers</p>
+                <a href="" data-id="4" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/corsairK63.jpg" alt="">
+                    <p>Ars$<span>14000</span></p>
+                </div>
+                <p class="title"> Teclado corsairK63 lo mejor del mercado </p>
+                <a href="" data-id="5" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/corsairDarkCore.jpg" alt="">
+                    <p>Ars$<span>8000</span></p>
+                </div>
+                <p class="title"> Mouse inalámbrico super comodo ideal para trabajar en casa</p>
+                <a href="" data-id="6" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/corsairCarbideSPEC-ALPHA.jpg" alt="">
+                    <p>Ars$<span>17000</span></p>
+                </div>
+                <p class="title"> Gabinete gamer super fachero pensado para lucir tu setup</p>
+                <a href="" data-id="7" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/asusGeForceGTX10708GB.jpg" alt="">
+                    <p>Ars$<span>60000</span></p>
+                </div>
+                <p class="title"> Placa de video nvidia 1070 gamer pensada para gamers exigentes</p>
+                <a href="" data-id="8" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/asusCROSSBLADERANGER.jpg" alt="">
+                    <p>Ars$<span>18000</span></p>
+                </div>
+                <p class="title"> Motherboard m4 crossblad pensada para llevar al maximo la capacidad de tu pc</p>
+                <a href="" data-id="9" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/asrockMBTRX40Taichi.jpg" alt="">
+                    <p>Ars$<span>34000</span></p>
+                </div>
+                <p class="title"> Mother Asrock m4 de lo mas alta gama en el mercado </p>
+                <a href="" data-id="10" class="btn-add-cart">add to cart</a>
+            </div>
+            <div class="carts">
+                <div>
+                    <img src="./images/products/apeviaATX-RA500WRaptor.jpg" alt="">
+                    <p>Ars$<span>7500</span></p>
+                </div>
+                <p class="title"> Fuente de poder apevia ideal para comenzar en el mundo gamer</p>
+                <a href="" data-id="11" class="btn-add-cart">add to cart</a>
+             </div>
+
+             <div class="carts">
+                <div>
+                    <img src="./images/products/alienware25GAW2518Hf.jpg" alt="">
+                    <p>Ars$<span>56000</span></p>
+                </div>
+                <p class="title"> Monitor super gamer ,pensado para jugar todo a 144ghz </p>
+                <a href="" data-id="10" class="btn-add-cart">add to cart</a>
+            </div>
+
+
+        </div>
+    </section>
+
+    <footer>
+      <div class="logoFooter"> <img class="logo" src="./images/logoShop.png" alt=""></div> 
+    </footer>
+
+    <script>
+        function showCart(x){
+            document.getElementById("products-id").style.display = "block";
+        }
+        function closeBtn(){
+             document.getElementById("products-id").style.display = "none";
+        }
+
+    </script>
+    <script src="./custom.js" ></script>
+</body>
+</html>
