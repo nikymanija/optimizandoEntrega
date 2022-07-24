@@ -1,102 +1,95 @@
 //variables
-let allContainerCart = document.querySelector('.products');
-let containerBuyCart = document.querySelector('.card-items');
-let priceTotal = document.querySelector('.price-total')
-let amountProduct = document.querySelector('.count-product');
+let allContainerCart = document.querySelector(".products");
+let containerBuyCart = document.querySelector(".card-items");
+let priceTotal = document.querySelector(".price-total");
+let amountProduct = document.querySelector(".count-product");
 
-
-let buyThings = [];
+let buyThings = [1];
 let totalCard = 0;
 let countProduct = 0;
 
 //functions
 loadEventListenrs();
-function loadEventListenrs(){
-    allContainerCart.addEventListener('click', addProduct);
+function loadEventListenrs() {
+  allContainerCart.addEventListener("click", addProduct);
 
-    containerBuyCart.addEventListener('click', deleteProduct);
+  containerBuyCart.addEventListener("click", deleteProduct);
 }
 
-function addProduct(e){
-    e.preventDefault();
-    if (e.target.classList.contains('btn-add-cart')) {
-        const selectProduct = e.target.parentElement; 
-        readTheContent(selectProduct);
-    }
+function addProduct(e) {
+  e.preventDefault();
+  if (e.target.classList.contains("btn-add-cart")) {
+    const selectProduct = e.target.parentElement;
+    readTheContent(selectProduct);
+  }
 }
 
 function deleteProduct(e) {
-    if (e.target.classList.contains('delete-product')) {
-        const deleteId = e.target.getAttribute('data-id');
+  if (e.target.classList.contains("delete-product")) {
+    const deleteId = e.target.getAttribute("data-id");
 
-        buyThings.forEach(value => {
-            if (value.id == deleteId) {
-                let priceReduce = parseFloat(value.price) * parseFloat(value.amount);
-                totalCard =  totalCard - priceReduce;
-                totalCard = totalCard.toFixed(2);
-            }
-        });
-        buyThings = buyThings.filter(product => product.id !== deleteId);
-        
-        countProduct--;
-    }
-    //FIX: El contador se quedaba con "1" aunque ubiera 0 productos
-    if (buyThings.length === 0) {
-        priceTotal.innerHTML = 0;
-        amountProduct.innerHTML = 0;
-    }
-    loadHtml();
+    buyThings.forEach((value) => {
+      if (value.id == deleteId) {
+        let priceReduce = parseFloat(value.price) * parseFloat(value.amount);
+        totalCard = totalCard - priceReduce;
+        totalCard = totalCard.toFixed(2);
+      }
+    });
+    buyThings = buyThings.filter((product) => product.id !== deleteId);
+
+    countProduct--;
+  }
+  //FIX: El contador se quedaba con "1" aunque ubiera 0 productos
+  if (buyThings.length === 0) {
+    priceTotal.innerHTML = 0;
+    amountProduct.innerHTML = 0;
+  }
+  loadHtml();
 }
 
-function readTheContent(product){
-    const infoProduct = {
-        image: product.querySelector('div img').src,
-        title: product.querySelector('.title').textContent,
-        price: product.querySelector('div p span').textContent,
-        id: product.querySelector('a').getAttribute('data-id'),
-        amount: 1
-        
-        
-    }
+function readTheContent(product) {
+  const infoProduct = {
+    image: product.querySelector("div img").src,
+    title: product.querySelector(".title").textContent,
+    price: product.querySelector("div p span").textContent,
+    id: product.querySelector("a").getAttribute("data-id"),
+    amount: 1,
+  };
 
-    totalCard = parseFloat(totalCard) + parseFloat(infoProduct.price);
-    totalCard = totalCard.toFixed(2);
+  totalCard = parseFloat(totalCard) + parseFloat(infoProduct.price);
+  totalCard = totalCard.toFixed(2);
+
+  const exist = buyThings.some((product) => product.id === infoProduct.id);
+  if (exist) {
+    const pro = buyThings.map((product) => {
+      if (product.id === infoProduct.id) {
+        product.amount++;
+        return product;
+      } else {
+        return product;
+      }
+    });
+    //Aplico spread a array
+    buyThings = [...pro];
+  } else {
+    buyThings = [...buyThings, infoProduct];
+    countProduct++;
+  }
+  loadHtml();
+}
+
+function loadHtml() {
+
+  clearHtml()
+  buyThings.forEach((product) => {
+    //desestructuración 
+    const { image, title, price, amount, id } = product;
    
-
-    const exist = buyThings.some(product => product.id === infoProduct.id);
-    if (exist) {
-        const pro = buyThings.map(product => {
-            if (product.id === infoProduct.id) {
-                product.amount++;
-                return product;
-            } else {
-                return product
-            }
-        });
-        buyThings = [...pro];
-    } else {
-        buyThings = [...buyThings, infoProduct]
-        countProduct++;
-    }
-    loadHtml();
-
+    const row = document.createElement("div");
+    row.classList.add("item");
     
-}
-
-
-
-
-
-
-function loadHtml(){
-    window.onload
-    clearHtml();
-    buyThings.forEach(product => {
-        const {image, title, price, amount, id} = product;
-        const row = document.createElement('div');
-        row.classList.add('item');
-
-        row.innerHTML = `
+  
+    row.innerHTML = `
             <img src="${image}" alt="">
             <div class="item-content">
                 <h5>${title}</h5>
@@ -105,38 +98,51 @@ function loadHtml(){
             </div>
             <span class="delete-product" data-id="${id}">X</span>
             
-        `
-        
-        
-        ;
+        `;
 
-        containerBuyCart.appendChild(row);
+       
+    containerBuyCart.appendChild(row);
+    
+ 
 
-        priceTotal.innerHTML = totalCard;
+    priceTotal.innerHTML = totalCard;
 
-        amountProduct.innerHTML = countProduct;
-     
-        addLocalStorage()
-        
+    amountProduct.innerHTML = countProduct;
 
-
-        
-  
-    });
+    addLocalStorage();
+  });
 }
- function clearHtml(){
-    containerBuyCart.innerHTML = '';
- }
+function clearHtml() {
+  containerBuyCart.innerHTML = "";
+}
 
+function addLocalStorage() {
+ 
+  localStorage.setItem("carrito", JSON.stringify(buyThings));
 
- function addLocalStorage(){
-    localStorage.setItem('carrito', JSON.stringify(buyThings))
-  }
-  
-  window.onload = function(){
-    const storage = JSON.parse(localStorage.getItem('carrito'));
-    if(storage){
-      carrito = storage;
-      loadHtml()
     }
+
+
+
+
+
+window.onload = function () {
+
+
+  const storage = JSON.parse(localStorage.getItem("carrito"));
+  if (storage) {
+    buyThings = storage;
+    countProduct = storage.length;
+
+    totalCard = storage.reduce(
+      (acc, product) => acc + parseFloat(product.price),
+      0
+      
+    );
   }
+//simplificando condicionales
+countProduct?? buyThings[0];
+
+  loadHtml();
+ 
+};
